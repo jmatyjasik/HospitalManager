@@ -1,13 +1,11 @@
 package com.hospitalManager.console.commands;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospitalManager.console.utils.Console;
 import com.hospitalManager.model.Hospital;
 import com.hospitalManager.model.workers.Worker;
 
 import java.io.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ExitCommand implements ICommand{
 
@@ -22,7 +20,7 @@ public class ExitCommand implements ICommand{
     }
 
     @Override
-    public void execute(Hospital hospital){
+    public void execute(Hospital hospital, Worker loggedWorker){
 
         Console.info("Zapisywanie stanu aplikacjoi...");
         ObjectMapper mapper = new ObjectMapper();

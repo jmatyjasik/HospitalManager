@@ -10,12 +10,12 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Console.info("Hospital Manager 1.0 app");
+        Console.normal("Hospital Manager 1.0 app");
 
         HospitalManager manager = new HospitalManager();
         manager.Run();
 
-        Console.info("Naciśnij dowolny klawisz, aby zakończyć...");
+        Console.normal("Naciśnij dowolny klawisz, aby zakończyć...");
         Console.readLine();
     }
 }

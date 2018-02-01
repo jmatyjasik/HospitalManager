@@ -32,7 +32,7 @@ public class Worker {
 
     @JsonIgnore
     public String getInfo() {
-        return String.format("%s [%s] - %s", name, login, getProffesion());
+        return String.format("%s - %s (%s)", login, name, getProffesion());
     }
 
     @JsonIgnore

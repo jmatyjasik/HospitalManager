@@ -1,5 +1,6 @@
-package com.hospitalManager.console.commands;
+package com.hospitalManager.console.commands.duties;
 
+import com.hospitalManager.console.commands.ICommand;
 import com.hospitalManager.console.utils.Console;
 import com.hospitalManager.model.Hospital;
 import com.hospitalManager.model.utils.Result;
@@ -14,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddDutyCommand implements ICommand{
+public class AddDutyCommand implements ICommand {
 
     @Override
     public String getName() {
@@ -27,7 +28,7 @@ public class AddDutyCommand implements ICommand{
     }
 
     @Override
-    public void execute(Hospital hospital) throws IOException {
+    public void execute(Hospital hospital, Worker loggedWorker) throws IOException {
        DutyWorker dutyWorker = askForLogin(hospital);
 
        boolean repeatAction = false;
@@ -84,3 +85,4 @@ public class AddDutyCommand implements ICommand{
         return dutyWorker;
     }
 }
+

@@ -2,8 +2,8 @@ package com.hospitalManager.console.workerPanels;
 
 import com.hospitalManager.console.commands.ExitCommand;
 import com.hospitalManager.console.commands.ICommand;
-import com.hospitalManager.console.commands.ListAllWorkersCommand;
-import com.hospitalManager.console.commands.ListMyDutiesCommand;
+import com.hospitalManager.console.commands.workers.ListAllWorkersCommand;
+import com.hospitalManager.console.commands.duties.ListMyDutiesCommand;
 import com.hospitalManager.model.workers.Worker;
 
 import java.util.Map;

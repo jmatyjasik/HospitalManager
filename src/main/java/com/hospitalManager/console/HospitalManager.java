@@ -26,10 +26,10 @@ public class HospitalManager {
         String path = "target/szpital.json";
 
         if (Files.exists(Paths.get(path))) {
-            Console.info("Pobieram baze z dysku");
+            Console.normal("Pobieram baze z dysku");
             this.hospital = LoadFromDisk(path);
         } else {
-            Console.info("Nie znaleziono bazy, tworzę nową");
+            Console.normal("Nie znaleziono bazy, tworzę nową");
             hospital = new Hospital();
             Worker admin = new Administrator("admin", "admin", "Jan Kowalski");
             hospital.addWorker(admin);
@@ -85,14 +85,14 @@ public class HospitalManager {
 
     private Worker Login() {
 
-        Console.info("Logowanie do systemu");
+        Console.normal("Logowanie do systemu");
         Result<Worker> loginResult;
 
         do {
-            Console.info("Podaj login: ");
+            Console.question("Podaj login: ");
             String login = Console.readLine();
 
-            Console.info("Podaj hasło: ");
+            Console.question("Podaj hasło: ");
             String password = Console.readLine();
 
 

@@ -1,7 +1,9 @@
-package com.hospitalManager.console.commands;
+package com.hospitalManager.console.commands.duties;
 
+import com.hospitalManager.console.commands.ICommand;
 import com.hospitalManager.console.utils.Console;
 import com.hospitalManager.model.Hospital;
+import com.hospitalManager.model.utils.DateUtil;
 import com.hospitalManager.model.utils.Result;
 import com.hospitalManager.model.workers.DutyWorker;
 import com.hospitalManager.model.workers.Worker;
@@ -10,9 +12,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ListMyDutiesCommand implements ICommand{
+public class ListMyDutiesCommand implements ICommand {
 
-    private DutyWorker dutyWorker;
+    private Worker loggedWorker;
 
     @Override
     public String getName() {
@@ -21,16 +23,12 @@ public class ListMyDutiesCommand implements ICommand{
 
     @Override
     public boolean canExecute(Worker worker) {
-        boolean result = worker instanceof DutyWorker;
-        if (result){
-            this.dutyWorker = (DutyWorker) worker;
-        }
-
-        return result;
+        return worker instanceof DutyWorker;
     }
 
     @Override
-    public void execute(Hospital hospital) throws IOException {
+    public void execute(Hospital hospital, Worker loggedWorker) throws IOException {
+        this.loggedWorker = loggedWorker;
 
         DutyWorker dw = askForDutyWorker(hospital);
 
@@ -40,9 +38,7 @@ public class ListMyDutiesCommand implements ICommand{
         else {
             Console.info("Lista dyżurów: ");
             for (Date duty: dw.getDuties()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String date = sdf.format(duty);
-                Console.info(String.format("\t- %s", date));
+                Console.info(String.format("\t- %s", DateUtil.toString(duty)));
             }
         }
     }
@@ -55,7 +51,7 @@ public class ListMyDutiesCommand implements ICommand{
             String login = Console.readLine();
             if (login.isEmpty())
             {
-                dw = this.dutyWorker;
+                dw = (DutyWorker) this.loggedWorker;
             }
             else{
                 Result<DutyWorker> result = hospital.getDutyWorker(login);

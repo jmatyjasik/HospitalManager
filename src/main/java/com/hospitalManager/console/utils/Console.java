@@ -34,4 +34,8 @@ public class Console {
     public static void question(String question) {
         System.out.println(ConsoleColors.CYAN + question + ConsoleColors.RESET);
     }
+
+    public static void normal(String text) {
+        System.out.println(text);
+    }
 }

@@ -98,4 +98,8 @@ public class Hospital {
 
         return dutyWorker.addDuty(duty);
     }
+
+    public void removeWorker(Worker worker) {
+        allWorkers.remove(worker);
+    }
 }

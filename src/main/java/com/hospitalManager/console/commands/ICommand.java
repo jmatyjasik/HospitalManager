@@ -10,6 +10,6 @@ public interface ICommand {
 
     boolean canExecute(Worker worker);
 
-    void execute(Hospital hospital) throws IOException;
+    void execute(Hospital hospital, Worker loggedWorker) throws IOException;
 }
 

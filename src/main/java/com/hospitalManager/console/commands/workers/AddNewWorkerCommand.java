@@ -1,5 +1,6 @@
-package com.hospitalManager.console.commands;
+package com.hospitalManager.console.commands.workers;
 
+import com.hospitalManager.console.commands.ICommand;
 import com.hospitalManager.console.utils.Console;
 import com.hospitalManager.model.Hospital;
 import com.hospitalManager.model.workers.Administrator;
@@ -7,7 +8,7 @@ import com.hospitalManager.model.workers.Doctor;
 import com.hospitalManager.model.workers.Nurse;
 import com.hospitalManager.model.workers.Worker;
 
-public class AddNewWorkerCommand implements ICommand{
+public class AddNewWorkerCommand implements ICommand {
 
     @Override
     public String getName() {
@@ -20,8 +21,8 @@ public class AddNewWorkerCommand implements ICommand{
     }
 
     @Override
-    public void execute(Hospital hospital) {
-        Console.info("Dodawanie nego pracownika:");
+    public void execute(Hospital hospital, Worker loggedWorker) {
+        Console.normal("Dodawanie nego pracownika:");
 
         String name = askForProp("Imie i nazwisko");
         String login = askForLogin(hospital);
@@ -47,24 +48,24 @@ public class AddNewWorkerCommand implements ICommand{
                     break;
 
                 default:
-                    Console.warning("Nie rozpoznano zawodu [1-3]");
+                    Console.error("Nie rozpoznano zawodu [1-3]");
                     objectWasCreated = false;
                     break;
             }
         } while (! objectWasCreated);
 
         hospital.addWorker(worker);
-        Console.info("Pracownik został pomyślnie dodany do bazy");
+        Console.normal("Pracownik został pomyślnie dodany do bazy");
 
         System.out.println();
     }
 
     private int askForProffesion() {
-        Console.info("Podaj zawód:");
-        Console.info("--------------------");
-        Console.info("[1] - Admin");
-        Console.info("[2] - Pielęgniarka");
-        Console.info("[3] - Lekarz");
+        Console.question("Podaj zawód:");
+        Console.question("--------------------");
+        Console.question("[1] - Admin");
+        Console.question("[2] - Pielęgniarka");
+        Console.question("[3] - Lekarz");
 
         return Console.readInt();
     }
@@ -76,7 +77,7 @@ public class AddNewWorkerCommand implements ICommand{
             login = askForProp("login");
             loginIsOk = ! hospital.isLoginAlreadyExists(login);
             if (!loginIsOk){
-                Console.warning("Login jest już zajęty");
+                Console.error("Login jest już zajęty");
             }
 
         } while (! loginIsOk);
@@ -85,7 +86,7 @@ public class AddNewWorkerCommand implements ICommand{
     }
 
     private String askForProp(String propName){
-        Console.info(String.format("Podsj %s:", propName));
+        Console.question(String.format("Podsj %s:", propName));
         return Console.readLine();
     }
 }
