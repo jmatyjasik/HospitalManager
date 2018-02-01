@@ -23,15 +23,15 @@ public class Result<TValue> {
         return new Result<>(true, val, null);
     }
 
-    public static Result<Worker> error(String errorMessage){
-        return new Result<>(false, null, errorMessage);
+    public static Result error(String errorMessage){
+        return new Result(false, null, errorMessage);
     }
 
-    public boolean isTrue() {
+    public boolean isSucceded() {
         return result;
     }
 
-    public boolean isFalse() {
+    public boolean isFailed() {
         return ! result;
     }
 

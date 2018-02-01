@@ -11,7 +11,7 @@ public class AddNewWorkerCommand implements ICommand{
 
     @Override
     public String getName() {
-        return "Lista wszystkich pracowników szpitala";
+        return "Dodaj nowego pracownika";
     }
 
     @Override

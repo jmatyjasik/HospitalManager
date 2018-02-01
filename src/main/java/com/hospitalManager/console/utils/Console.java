@@ -26,4 +26,12 @@ public class Console {
         Scanner console = new Scanner(System.in);
         return console.nextInt();
     }
+
+    public static void emptyLine() {
+        System.out.println();
+    }
+
+    public static void question(String question) {
+        System.out.println(ConsoleColors.CYAN + question + ConsoleColors.RESET);
+    }
 }

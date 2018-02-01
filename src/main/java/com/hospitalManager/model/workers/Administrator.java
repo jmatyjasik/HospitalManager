@@ -5,6 +5,8 @@ public class Administrator extends Worker {
         super(login, password, name);
     }
 
+    public Administrator(){super();}
+
     @Override
     public String getProffesion() {
         return "Administrator";

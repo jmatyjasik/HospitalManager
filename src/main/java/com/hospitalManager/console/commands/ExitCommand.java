@@ -1,7 +1,13 @@
 package com.hospitalManager.console.commands;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hospitalManager.console.utils.Console;
 import com.hospitalManager.model.Hospital;
 import com.hospitalManager.model.workers.Worker;
+
+import java.io.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ExitCommand implements ICommand{
 
@@ -16,8 +22,25 @@ public class ExitCommand implements ICommand{
     }
 
     @Override
-    public void execute(Hospital hospital) {
-        //Save hospital in file
+    public void execute(Hospital hospital){
+
+        Console.info("Zapisywanie stanu aplikacjoi...");
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+
+        try {
+            String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hospital);
+            PrintStream out = new PrintStream(new FileOutputStream("target/szpital.json"));
+
+            out.print(jsonResult);
+
+            Console.info("Pomyslnie zapisano stan");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Console.error("Błąd: " + e.getMessage());
+        }
+
+
     }
 }
 

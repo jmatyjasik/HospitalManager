@@ -1,10 +1,12 @@
 package com.hospitalManager.console.workerPanels;
 
+import com.hospitalManager.console.commands.ExitCommand;
 import com.hospitalManager.console.commands.ICommand;
 import com.hospitalManager.console.utils.Console;
 import com.hospitalManager.model.Hospital;
 import com.hospitalManager.model.workers.Worker;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,7 +28,7 @@ public abstract class WorkerPanel{
                         InitializeCommands(AllCommand);
                 }
 
-                boolean didNotPressedExit = true;
+                boolean exitRequested = false;
                 do {
                         DisplayMenu();
 
@@ -39,10 +41,25 @@ public abstract class WorkerPanel{
                                 ICommand command = AllCommand.get(chosenOption);
                                 if (! command.canExecute(worker))
                                         Console.warning("Brak wystarczających uprawnień do wykonania operacji");
-                                else
-                                        command.execute(hospital);
+                                else {
+                                        try {
+                                                if (command instanceof ExitCommand){
+                                                        exitRequested = true;
+                                                }
+
+                                                command.execute(hospital);
+                                        } catch (IOException e) {
+                                                e.printStackTrace();
+                                        }
+
+                                        if (! exitRequested) {
+                                                //Console.emptyLine();
+                                                Console.info("Naciśjnij <ENTER> aby przejść do menu...");
+                                                Console.readLine();
+                                        }
+                                }
                         }
-                }  while (didNotPressedExit);
+                }  while (! exitRequested);
         }
 
         protected void DisplayMenu(){
